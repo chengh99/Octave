@@ -17,19 +17,18 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
+    % Use matrix and vector to compute assuming x0 is in place in sample set
+    h = X * theta;    
+    % disp(h);
+    
+    %fprintf('Before regression, theta ...\n');
+    %disp(theta);
 
-    x = X(:,2);
-    h = theta(1) + (theta(2)*x);
+    theta = theta - alpha / m * sum ((h - y).*X)';
 
-    theta_zero = theta(1) - alpha * (1/m) * sum(h-y);
-    theta_one  = theta(2) - alpha * (1/m) * sum((h - y) .* x);
+    %fprintf('After regression, theta ...\n');
+    %disp(theta);
 
-    theta = [theta_zero; theta_one];
-    % ============================================================
-
-    % Save the cost J in every iteration
-    J_history(iter) = computeCost(X, y, theta);
-    % disp(J_history(iter));
 end
 
   disp(min(J_history));
